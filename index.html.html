@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sensel Family Ventures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --evergreen: #2F4338;
+    --evergreen-deep: #233228;
+    --evergreen-mid: #3d5647;
+    --cream: #F8F6F3;
+    --cream-warm: #ede8df;
+    --clay: #A88776;
+    --clay-light: #c4a494;
+    --sage: #8C9C92;
+    --charcoal: #2B2B2B;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Lato', sans-serif;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; font-size: 18px; }
+  body { background: var(--cream); color: var(--charcoal); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5%;
+    background: rgba(35,50,40,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(248,246,243,0.08);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--sans); font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(248,246,243,0.65); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-cta { font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--evergreen); background: var(--clay); padding: 0.55rem 1.35rem; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--clay-light); }
+
+  section { padding: 5.5rem 5%; }
+  .container { max-width: 1340px; margin: 0 auto; }
+
+  #hero { background: var(--evergreen-deep); min-height: 100vh; display: flex; align-items: center; padding-top: 9rem; position: relative; overflow: hidden; }
+  .hero-constellation { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); opacity: 0.07; pointer-events: none; }
+
+  .hero-eyebrow { font-family: var(--sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 2.5rem; height: 1px; background: var(--clay); }
+
+  h1 { font-family: var(--serif); font-size: clamp(3rem, 8vw, 7rem); font-weight: 300; line-height: 1.05; color: var(--cream); margin-bottom: 2rem; }
+  h1 em { font-style: italic; color: var(--clay-light); }
+
+  .hero-sub { font-family: var(--sans); font-size: 1.05rem; font-weight: 300; color: rgba(248,246,243,0.7); max-width: 640px; line-height: 1.7; margin-bottom: 2.5rem; }
+
+  .btn-primary { display: inline-block; background: var(--clay); color: var(--cream); font-family: var(--sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.95rem 2.2rem; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--clay-light); transform: translateY(-1px); }
+  .btn-ghost { display: inline-block; color: rgba(248,246,243,0.65); font-family: var(--sans); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.95rem 1.75rem; border: 1px solid rgba(248,246,243,0.18); text-decoration: none; margin-left: 1rem; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: rgba(248,246,243,0.45); color: var(--cream); }
+
+  .hero-stat-row { display: flex; gap: 3rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(248,246,243,0.1); flex-wrap: wrap; }
+  .hero-stat-num { font-family: var(--serif); font-size: 2rem; font-weight: 400; font-style: italic; color: var(--clay-light); }
+  .hero-stat-label { font-family: var(--sans); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,246,243,0.5); margin-top: 0.15rem; }
+
+  .section-eyebrow { font-family: var(--sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+  .section-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--clay); }
+
+  h2 { font-family: var(--serif); font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.18; color: var(--evergreen); margin-bottom: 1.5rem; }
+  h2 em { font-style: italic; color: var(--clay); }
+
+  #mission { background: var(--cream); }
+  .mission-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 6rem; align-items: center; }
+  .mission-text p { font-family: var(--sans); font-size: 0.97rem; font-weight: 300; color: #4a4a45; line-height: 1.9; margin-bottom: 1.25rem; }
+  .mission-pull { font-family: var(--serif); font-size: 1.65rem; font-weight: 300; font-style: italic; color: var(--evergreen); line-height: 1.45; padding-left: 2rem; border-left: 2px solid var(--clay); }
+  .constellation-caption { margin-top: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .constellation-caption p { font-family: var(--sans); font-size: 0.75rem; color: var(--sage); line-height: 1.5; }
+
+  #thesis { background: var(--evergreen); }
+  #thesis h2 { color: var(--cream); }
+  #thesis h2 em { color: var(--clay-light); }
+  #thesis .section-eyebrow { color: var(--clay-light); }
+  #thesis .section-eyebrow::before { background: var(--clay-light); }
+  .thesis-intro { max-width: 640px; margin-bottom: 4rem; }
+  .thesis-intro p { font-family: var(--sans); font-size: 0.97rem; font-weight: 300; color: rgba(248,246,243,0.65); line-height: 1.85; margin-top: 1rem; }
+  .criteria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(248,246,243,0.08); border: 1px solid rgba(248,246,243,0.08); }
+  .criteria-card { background: var(--evergreen-deep); padding: 2.25rem 2rem; transition: background 0.2s; }
+  .criteria-card:hover { background: var(--evergreen-mid); }
+  .criteria-num { font-family: var(--serif); font-size: 2.5rem; font-weight: 300; color: rgba(168,135,118,0.22); line-height: 1; margin-bottom: 1rem; }
+  .criteria-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 500; color: var(--cream); margin-bottom: 0.65rem; }
+  .criteria-body { font-family: var(--sans); font-size: 0.85rem; font-weight: 300; color: rgba(248,246,243,0.65); line-height: 1.75; }
+
+  #notvc { background: var(--cream-warm); }
+  .notvc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .compare-block h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--evergreen); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(47,67,56,0.12); }
+  .compare-list { list-style: none; }
+  .compare-list li { font-family: var(--sans); font-size: 0.9rem; font-weight: 300; color: #4a4a45; padding: 0.7rem 0; border-bottom: 1px solid rgba(47,67,56,0.07); display: flex; align-items: center; gap: 0.75rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-clay { background: var(--clay); }
+  .dot-sage { background: var(--sage); opacity: 0.5; }
+
+  #about { background: var(--cream); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.8fr; gap: 6rem; align-items: start; }
+  .about-tagline { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--clay); line-height: 1.6; margin-top: 1.25rem; }
+  .about-body p { font-family: var(--sans); font-size: 0.97rem; font-weight: 300; color: #4a4a45; line-height: 1.9; margin-bottom: 1.25rem; }
+  .values-list { margin-top: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(47,67,56,0.12); border: 1px solid rgba(47,67,56,0.12); }
+  .value-item { padding: 1.35rem 1.5rem; background: var(--cream); transition: background 0.2s; }
+  .value-item:hover { background: var(--cream-warm); }
+  .value-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; color: var(--evergreen); margin-bottom: 0.35rem; }
+  .value-body { font-family: var(--sans); font-size: 0.8rem; font-weight: 300; color: #6a6a65; line-height: 1.6; }
+
+  #team { background: var(--cream-warm); }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .bio-card { background: var(--cream); border: 1px solid rgba(47,67,56,0.1); padding: 2rem; display: flex; flex-direction: column; }
+  .bio-photo { width: 120px !important; height: 120px !important; flex-shrink: 0; display: block; }
+  .bio-name { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; color: var(--evergreen); margin-bottom: 0.2rem; }
+  .bio-role { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 1rem; }
+  .bio-body { font-family: var(--sans); font-size: 0.92rem; font-weight: 300; color: #4a4a45; line-height: 1.7; margin-bottom: 1.25rem; flex-grow: 1; }
+  .bio-linkedin { font-family: var(--sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--evergreen); text-decoration: none; border-bottom: 1px solid rgba(47,67,56,0.25); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; align-self: flex-start; margin-top: auto; }
+  .bio-linkedin:hover { color: var(--clay); border-color: var(--clay); }
+
+  #partners { background: var(--evergreen-deep); padding: 4rem 5%; }
+  #partners .section-eyebrow { color: var(--clay-light); }
+  #partners .section-eyebrow::before { background: var(--clay-light); }
+  .partners-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+  .partners-text { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--cream); }
+  .partner-item { padding: 1rem 2rem; border: 1px solid rgba(168,135,118,0.32); font-family: var(--sans); font-size: 0.8rem; font-weight: 400; letter-spacing: 0.08em; color: rgba(248,246,243,0.65); text-decoration: none; transition: border-color 0.2s, color 0.2s; display: block; }
+  .partner-item:hover { border-color: var(--clay); color: var(--cream); }
+
+  #contact { background: var(--cream-warm); text-align: center; }
+  .cta-constellation { margin: 0 auto 2.5rem; display: block; opacity: 0.18; }
+  .contact-sub { font-family: var(--sans); font-size: 1rem; font-weight: 300; color: #5a5a55; max-width: 500px; margin: 0 auto 3.5rem; line-height: 1.85; }
+  .contact-direct { max-width: 600px; margin: 0 auto; }
+  .contact-email-primary { display: inline-block; font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 400; font-style: italic; color: var(--evergreen); text-decoration: none; border-bottom: 1px solid var(--clay); padding-bottom: 0.3rem; margin-bottom: 1.75rem; transition: color 0.2s, border-color 0.2s; }
+  .contact-email-primary:hover { color: var(--clay); border-color: var(--evergreen); }
+  .contact-signature { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; color: var(--evergreen); line-height: 1.4; margin-bottom: 2.5rem; }
+  .contact-signature span { font-family: var(--sans); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); display: inline-block; margin-top: 0.35rem; }
+  .contact-alt { font-family: var(--sans); font-size: 0.88rem; font-weight: 300; color: #6a6a65; padding-top: 2rem; border-top: 1px solid rgba(47,67,56,0.12); }
+  .contact-alt a { color: var(--evergreen); text-decoration: none; border-bottom: 1px solid rgba(47,67,56,0.25); transition: color 0.2s, border-color 0.2s; }
+  .contact-alt a:hover { color: var(--clay); border-color: var(--clay); }
+  .contact-form { max-width: 560px; margin: 0 auto; text-align: left; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  label { font-family: var(--sans); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); }
+  input, textarea, select { background: var(--cream); border: 1px solid rgba(47,67,56,0.18); color: var(--charcoal); font-family: var(--sans); font-size: 0.92rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.2s; width: 100%; -webkit-appearance: none; border-radius: 0; }
+  input::placeholder, textarea::placeholder { color: rgba(43,43,43,0.28); }
+  input:focus, textarea:focus, select:focus { border-color: var(--clay); }
+  textarea { resize: vertical; min-height: 120px; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A88776' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+  .form-submit { width: 100%; background: var(--evergreen); color: var(--cream); font-family: var(--sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 1.1rem; border: none; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; border-radius: 0; }
+  .form-submit:hover { background: var(--evergreen-mid); }
+
+  footer { background: var(--evergreen-deep); padding: 2rem 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }.footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(248,246,243,0.28); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(248,246,243,0.65); }
+  .footer-copy { font-family: var(--sans); font-size: 0.7rem; color: rgba(248,246,243,0.22); }
+
+  /* STORY (was about, repurposed) */
+  #story { background: var(--cream); }
+  .story-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 5rem; align-items: start; }
+  .story-body p { font-family: var(--sans); font-size: 1rem; font-weight: 300; color: #4a4a45; line-height: 1.9; margin-bottom: 1.25rem; }
+  .story-body strong { color: var(--evergreen); font-weight: 700; }
+  .story-tag { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--clay); margin-top: 1.5rem !important; padding-left: 1.5rem; border-left: 2px solid var(--clay); }
+  .story-tag em { font-style: italic; color: var(--evergreen); }
+
+  /* CONSTELLATION MOMENT */
+  #constellation-moment { background: var(--cream-warm); padding: 6rem 5%; text-align: center; }
+  .constellation-inner { max-width: 720px; margin: 0 auto; }
+  .constellation-svg-wrap { margin: 0 auto 2.5rem; display: flex; justify-content: center; }
+  .constellation-h2 { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 300; color: var(--evergreen); line-height: 1.2; margin-bottom: 1.5rem; }
+  .constellation-h2 em { font-style: italic; color: var(--clay); }
+  .constellation-text { font-family: var(--sans); font-size: 1rem; font-weight: 300; color: #4a4a45; line-height: 1.9; }
+
+  /* LOGISTICS PANEL */
+  .logistics-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(248,246,243,0.08); border: 1px solid rgba(248,246,243,0.08); margin-top: 3rem; }
+  .logistics-item { background: var(--evergreen-deep); padding: 1.75rem 1.5rem; }
+  .logistics-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay-light); margin-bottom: 0.5rem; }
+  .logistics-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--cream); line-height: 1.35; }
+
+  /* PROCESS */
+  #process { background: var(--cream); }
+  .process-intro { font-family: var(--sans); font-size: 1rem; color: #5a5a55; max-width: 580px; line-height: 1.85; margin-top: 1rem; margin-bottom: 3rem; }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .process-steps-three { grid-template-columns: repeat(3, 1fr); }
+  .process-step { background: var(--cream-warm); padding: 2rem 1.75rem; border-left: 2px solid var(--clay); }
+  .process-num { font-family: var(--serif); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.16em; color: var(--clay); margin-bottom: 1rem; }
+  .process-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; color: var(--evergreen); margin-bottom: 0.4rem; }
+  .process-time { font-family: var(--sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+  .process-body { font-family: var(--sans); font-size: 0.88rem; font-weight: 300; color: #4a4a45; line-height: 1.7; }
+
+  /* STATUS / PARTNERS COMBINED */
+  .status-row { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 5rem; align-items: center; }
+  .status-h3 { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--cream); line-height: 1.25; margin-bottom: 1rem; }
+  .status-h3 em { font-style: italic; color: var(--clay-light); }
+  .status-text { font-family: var(--sans); font-size: 0.95rem; font-weight: 300; color: rgba(248,246,243,0.7); line-height: 1.85; }
+  .partners-block { border-left: 1px solid rgba(168,135,118,0.25); padding-left: 3rem; }
+
+  /* LEGAL MODALS */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(35,50,40,0.85); backdrop-filter: blur(8px); z-index: 200; display: none; align-items: flex-start; justify-content: center; padding: 4rem 2rem 2rem; overflow-y: auto; }
+  .modal-overlay.active { display: flex; }
+  .modal-content { background: var(--cream); max-width: 760px; width: 100%; padding: 3.5rem 3rem; border: 1px solid var(--clay); position: relative; }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-family: var(--sans); font-size: 1.5rem; cursor: pointer; color: var(--evergreen); line-height: 1; padding: 0.5rem 0.75rem; transition: color 0.2s; }
+  .modal-close:hover { color: var(--clay); }
+  .modal-content h2 { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--evergreen); margin-bottom: 0.5rem; }
+  .modal-meta { font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; }
+  .modal-content h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--evergreen); margin: 1.75rem 0 0.65rem; }
+  .modal-content h4 { font-family: var(--sans); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--clay); margin: 1.5rem 0 0.5rem; }
+  .modal-content p { font-family: var(--sans); font-size: 0.9rem; font-weight: 300; color: #3a3a35; line-height: 1.75; margin-bottom: 0.85rem; }
+  .modal-content a { color: var(--evergreen); }
+  .legal-caps { font-size: 0.78rem !important; line-height: 1.6 !important; color: #5a5a55 !important; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.65s ease forwards; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+
+  @media (max-width: 900px) {
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .logistics-panel { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mission-grid, .notvc-grid, .about-grid, .story-grid, .status-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .criteria-grid, .team-grid, .process-steps, .logistics-panel { grid-template-columns: 1fr; }
+    .partners-block { border-left: none; padding-left: 0; border-top: 1px solid rgba(168,135,118,0.25); padding-top: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stat-row { gap: 2rem; }
+    .values-list { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .hero-constellation { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero">
+    <svg viewBox="0 0 245 85" width="155" height="54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="15" cy="62" r="5" fill="#F8F6F3"/>
+      <circle cx="35" cy="50" r="4.5" fill="#F8F6F3"/>
+      <circle cx="21" cy="38" r="2.5" fill="#F8F6F3" opacity="0.5"/>
+      <circle cx="11" cy="28" r="2" fill="#F8F6F3" opacity="0.45"/>
+      <circle cx="31" cy="22" r="2.5" fill="#F8F6F3" opacity="0.5"/>
+      <circle cx="41" cy="32" r="2" fill="#F8F6F3" opacity="0.4"/>
+      <circle cx="25" cy="12" r="2" fill="#F8F6F3" opacity="0.45"/>
+      <circle cx="38" cy="8" r="1.8" fill="#F8F6F3" opacity="0.4"/>
+      <circle cx="18" cy="5" r="2.2" fill="#F8F6F3" opacity="0.5"/>
+      <text x="68" y="43" font-family="Cormorant Garamond, serif" font-size="32" font-weight="500" fill="#F8F6F3" letter-spacing="0.06em">SENSEL</text>
+      <text x="68" y="67" font-family="Cormorant Garamond, serif" font-size="14" font-weight="400" fill="#F8F6F3" letter-spacing="0.18em">FAMILY VENTURES</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#thesis">What We Look For</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#team">People</a></li>
+    <li><a href="#contact">For Entrepreneurs</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Reach Out</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-constellation">
+    <svg viewBox="0 0 50 70" width="300" height="420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="17" cy="60" r="5" fill="#F8F6F3"/>
+      <circle cx="37" cy="48" r="4.5" fill="#F8F6F3"/>
+      <circle cx="23" cy="36" r="2.5" fill="#F8F6F3" opacity="0.5"/>
+      <circle cx="13" cy="26" r="2" fill="#F8F6F3" opacity="0.45"/>
+      <circle cx="33" cy="20" r="2.5" fill="#F8F6F3" opacity="0.5"/>
+      <circle cx="43" cy="30" r="2" fill="#F8F6F3" opacity="0.4"/>
+      <circle cx="27" cy="10" r="2" fill="#F8F6F3" opacity="0.45"/>
+      <circle cx="40" cy="6" r="1.8" fill="#F8F6F3" opacity="0.4"/>
+      <circle cx="20" cy="3" r="2.2" fill="#F8F6F3" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="container">
+    <p class="hero-eyebrow fade-up">Dayton, Ohio &mdash; Est. 2025</p>
+    <h1 class="fade-up delay-1">Investing in the<br><em>builders who stay.</em></h1>
+    <p class="hero-sub fade-up delay-2">Sensel Family Ventures deploys patient, purpose-driven capital into small businesses across the Greater Dayton Area and beyond — backing entrepreneurs with strong leadership, deep roots, and the conviction that great businesses build great communities.</p>
+    <div class="fade-up delay-3">
+      <a class="btn-primary" href="#contact">Submit Your Business</a>
+      <a class="btn-ghost" href="#thesis">Our Approach</a>
+    </div>
+    <div class="hero-stat-row fade-up delay-4">
+      <div><div class="hero-stat-num">Patient</div><div class="hero-stat-label">Capital Philosophy</div></div>
+      <div><div class="hero-stat-num">Local</div><div class="hero-stat-label">Community Roots</div></div>
+      <div><div class="hero-stat-num">Legacy</div><div class="hero-stat-label">Driven Decisions</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div>
+        <p class="section-eyebrow">How We Got Here</p>
+        <h2>It started with a<br><em>payroll problem.</em></h2>
+      </div>
+      <div class="story-body">
+        <p>In the late 1970s, Karen Sensel was raising children and studying accounting part-time. Her husband's growing business kept getting timesheets too late in the day to process payroll on time. So she did what entrepreneurs do — she solved it. Early Express Mail Services started as a one-woman morning pickup operation, run before her morning classes.</p>
+        <p>It didn't stay small. Customers kept asking for more — bank deposit runs, mail sorting, envelope stuffing, eventually large-scale print and fulfillment. The company grew steadily into a professional service operation that still exists today, in its third generation of family leadership.</p>
+        <p>Frank's path ran in parallel. A banker by training with no sales experience, he founded Crown Services of Dayton in 1971, took Dale Carnegie courses to learn how to sell, and built a regional staffing company with integrity and grit. He eventually sold to his leadership team.</p>
+        <p>When Karen received her inheritance years later, she made an unusual choice: rather than deploy those resources for comfort or consumption, she reinvested them into the kind of entrepreneurship that had built her own life. <strong>That decision is how Sensel Family Ventures was born.</strong></p>
+        <p class="story-tag">When asked where her entrepreneurial instinct came from, Karen put it plainly: <em>"We're just problem solvers."</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-text">
+        <p class="section-eyebrow">What We Believe</p>
+        <h2>Capital with <em>purpose</em><br>and patience.</h2>
+        <p>We're not chasing multiples. We're building something that lasts — and we partner with entrepreneurs who feel the same way. Profit is not our primary motive, but we believe disciplined investing and aligned values generate meaningful returns, both financial and social, for generations to come.</p>
+        <p>We operate with deep respect for the entrepreneurial journey and a long-term view that most capital sources won't afford you.</p>
+      </div>
+      <div>
+        <p class="mission-pull">"We don't invest in business models. We invest in people who are building something they believe in."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSTELLATION MOMENT -->
+<section id="constellation-moment">
+  <div class="constellation-inner">
+    <div class="constellation-svg-wrap">
+      <svg viewBox="0 0 50 70" width="100" height="140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="17" cy="60" r="5" fill="#2F4338"/>
+        <circle cx="37" cy="48" r="4.5" fill="#2F4338"/>
+        <circle cx="23" cy="36" r="2.5" fill="#2F4338" opacity="0.5"/>
+        <circle cx="13" cy="26" r="2" fill="#2F4338" opacity="0.45"/>
+        <circle cx="33" cy="20" r="2.5" fill="#2F4338" opacity="0.5"/>
+        <circle cx="43" cy="30" r="2" fill="#2F4338" opacity="0.4"/>
+        <circle cx="27" cy="10" r="2" fill="#2F4338" opacity="0.45"/>
+        <circle cx="40" cy="6" r="1.8" fill="#2F4338" opacity="0.4"/>
+        <circle cx="20" cy="3" r="2.2" fill="#2F4338" opacity="0.5"/>
+      </svg>
+    </div>
+    <h2 class="constellation-h2">Nine stars in <em>rising formation.</em></h2>
+    <p class="constellation-text">Two bright anchor stars — Frank and Karen. Seven dimmer stars for the grandchildren. The constellation isn't decoration. It's the structure of our thinking: legacy as foundation, family as continuity, capital as guidance. Moving upward, generation after generation.</p>
+  </div>
+</section>
+
+<section id="thesis">
+  <div class="container">
+    <div class="thesis-intro">
+      <p class="section-eyebrow">What We Look For</p>
+      <h2>Six things we care about<br><em>more than the pitch deck.</em></h2>
+      <p>We evaluate businesses through the lens of leadership character, community alignment, and long-term viability — not financial projections alone. Here's what actually matters to us.</p>
+    </div>
+    <div class="criteria-grid">
+      <div class="criteria-card"><div class="criteria-num">01</div><div class="criteria-title">Strong Leadership</div><div class="criteria-body">We back the founder first. Character, resilience, and self-awareness matter more than any credential or track record.</div></div>
+      <div class="criteria-card"><div class="criteria-num">02</div><div class="criteria-title">Community Roots</div><div class="criteria-body">Your business should strengthen the place you're in. We prioritize companies with genuine ties to the Greater Dayton Area and similar communities.</div></div>
+      <div class="criteria-card"><div class="criteria-num">03</div><div class="criteria-title">Aligned Values</div><div class="criteria-body">We're a values-driven fund. We want founders who care about doing business with integrity — not just doing business.</div></div>
+      <div class="criteria-card"><div class="criteria-num">04</div><div class="criteria-title">Viable Economics</div><div class="criteria-body">We're patient, not naive. We expect a clear path to scalability. Healthy economics create healthy communities.</div></div>
+      <div class="criteria-card"><div class="criteria-num">05</div><div class="criteria-title">Long-Term Orientation</div><div class="criteria-body">We're not a quick-exit vehicle. If you're optimizing for a 24-month flip, we're not the right partner. We're here for the long haul.</div></div>
+      <div class="criteria-card"><div class="criteria-num">06</div><div class="criteria-title">A Shared Conversation</div><div class="criteria-body">We're at our best when there's mutual trust and honest dialogue. We don't need a seat at every table — we just want to be genuinely useful when it matters.</div></div>
+    </div>
+
+    <div class="logistics-panel">
+      <div class="logistics-item">
+        <div class="logistics-label">Typical Check Size</div>
+        <div class="logistics-value">$25K &ndash; $50K</div>
+      </div>
+      <div class="logistics-item">
+        <div class="logistics-label">Geography</div>
+        <div class="logistics-value">Greater Dayton area preferred</div>
+      </div>
+      <div class="logistics-item">
+        <div class="logistics-label">Structure</div>
+        <div class="logistics-value">Equity, SAFEs, and Debt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="notvc">
+  <div class="container">
+    <p class="section-eyebrow">How We're Different</p>
+    <h2>We are not a <em>venture capital firm.</em></h2>
+    <div class="notvc-grid">
+      <div>
+        <div class="compare-block">
+          <h3>What we are</h3>
+          <ul class="compare-list">
+            <li><span class="dot dot-clay"></span>A family fund with a multigenerational horizon</li>
+            <li><span class="dot dot-clay"></span>Patient capital — not managing a fund cycle</li>
+            <li><span class="dot dot-clay"></span>Relationship-first, terms second</li>
+            <li><span class="dot dot-clay"></span>Focused on community economic health</li>
+            <li><span class="dot dot-clay"></span>Willing to back businesses other capital ignores</li>
+            <li><span class="dot dot-clay"></span>Honest about what we don't know</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="compare-block">
+          <h3>What we are not</h3>
+          <ul class="compare-list">
+            <li><span class="dot dot-sage"></span>Chasing unicorns or hockey-stick growth</li>
+            <li><span class="dot dot-sage"></span>Requiring a 10x return to justify the investment</li>
+            <li><span class="dot dot-sage"></span>Looking for a quick exit or acquisition flip</li>
+            <li><span class="dot dot-sage"></span>Passive capital that disappears after the wire</li>
+            <li><span class="dot dot-sage"></span>Backing businesses without local or regional roots</li>
+            <li><span class="dot dot-sage"></span>Interested in businesses that operate without values</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <p class="section-eyebrow">Our Process</p>
+    <h2>Three steps. No mystery.<br><em>Less than 15 days on average.</em></h2>
+    <p class="process-intro">We respect your time. Our process is intentionally streamlined — submit, pitch, and get an answer. From submission to decision in under 15 days on average.</p>
+
+    <div class="process-steps process-steps-three">
+      <div class="process-step">
+        <div class="process-num">STEP 01</div>
+        <div class="process-title">Reach Out</div>
+        <div class="process-time">Day 0</div>
+        <div class="process-body">Contact us by email. We review every inquiry. If we're not the right fit, we'll tell you and explain why — usually within a few days.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">STEP 02</div>
+        <div class="process-title">Virtual Pitch</div>
+        <div class="process-time">Within 10 days</div>
+        <div class="process-body">We host you for a video conversation. You walk us through your business — what you're building, what you need, and why. A slide deck is helpful, but what we really want is clarity.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">STEP 03</div>
+        <div class="process-title">Decision</div>
+        <div class="process-time">Within 24 hours</div>
+        <div class="process-body">After the pitch, our investment committee deliberates in private. You'll receive a written decision by email — usually within 24 hours. Whether it's a yes or a no, we'll be honest about why.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="container">
+    <p class="section-eyebrow">The People</p>
+    <h2>Who you'll be<br><em>working with.</em></h2>
+    <div class="team-grid">
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_d63895c1dc334e3e90e04a5991527e65~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Scan%20May%205%2C%202025%20at%209_edited_edited.png" alt="Karen Sensel" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Karen Sensel</p>
+        <p class="bio-role">Founder &amp; Investment Committee</p>
+        <p class="bio-body">Karen's decision to reinvest her inheritance into Dayton's entrepreneurial community is the foundation of SFV. Founder of Early Express Mail Services, which grew across three generations of family leadership.</p>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_9e13df2aa7e4494192c3dc13a8320978~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Scan%20May%205%2C%202025%20at%209_edited_edited_edit.png" alt="Frank Sensel" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Frank Sensel</p>
+        <p class="bio-role">Co-Founder &amp; Investment Committee</p>
+        <p class="bio-body">Frank founded Crown Services of Dayton in 1971, a staffing company serving major regional employers, built with integrity and grit.</p>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_9d02f71790114eb2a0a120338b24c607~mv2.webp/v1/fill/w_443,h_431,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/CERITY-LARGE_Zach-Woodward.webp" alt="Zach Woodward" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Zach Woodward, CFP&reg;</p>
+        <p class="bio-role">Co-Founder &amp; Managing Director</p>
+        <p class="bio-body">Senior Principal at Cerity Partners. Zach leads the day-to-day operations of SFV, bringing financial planning expertise and a conviction that money is a tool — not a trophy.</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/zach-woodward-cfp%C2%AE-07b58185/" target="_blank" rel="noopener">View on LinkedIn &rarr;</a>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_fb74e48b1a2b46fda2758ca539053d71~mv2.png/v1/fill/w_443,h_431,al_c,lg_1,q_85,enc_avif,quality_auto/Katie_edited.png" alt="Katie Link" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Katie Link</p>
+        <p class="bio-role">Investment Committee</p>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_3d7d70ceb6bf46619d7c3a9478a0681e~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Chelsea_edited_edited.png" alt="Chelsea Colant" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Chelsea Colant</p>
+        <p class="bio-role">Investment Committee</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/chelsea-wiley-colant-b588744b/" target="_blank" rel="noopener">View on LinkedIn &rarr;</a>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_c8e6c1b108754f769f2c4c633c4eb0d7~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Taylor_edited.png" alt="Taylor Grant" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Taylor Grant</p>
+        <p class="bio-role">Investment Committee</p>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_15679a2198c54247a1f52659a931fb9b~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Megan_edited.png" alt="Megan Derrick" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Megan Derrick</p>
+        <p class="bio-role">Investment Committee</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/megan-wiley-545a519a/" target="_blank" rel="noopener">View on LinkedIn &rarr;</a>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_769998e08b8942ada2ae0b1c69cddb3c~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Heather_edited_edited.png" alt="Heather Wiley" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Heather Wiley</p>
+        <p class="bio-role">Investment Committee</p>
+        <a class="bio-linkedin" href="https://www.linkedin.com/in/heatherwiley/" target="_blank" rel="noopener">View on LinkedIn &rarr;</a>
+      </div>
+      <div class="bio-card">
+        <div class="bio-photo" style="border-radius:50%;overflow:hidden;margin-bottom:1.25rem;background:var(--cream-warm);"><img src="https://static.wixstatic.com/media/dac7aa_2d7e9eec3b284de58608d4c1a1f4b78c~mv2.png/v1/fill/w_443,h_431,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Jamie_edited.png" alt="Jamie Young" style="width:100%;height:100%;object-fit:cover;"></div>
+        <p class="bio-name">Jamie Young</p>
+        <p class="bio-role">Investment Committee</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="container">
+    <div class="status-row">
+      <div>
+        <p class="section-eyebrow">Current Status</p>
+        <p class="status-h3">In our first year of <em>active deployment.</em></p>
+        <p class="status-text">SFV launched in 2025, and we're 30% deployed across five portfolio companies in our first year. We're being deliberate about how we start — the first commitments set the tone for everything that follows. If you're a founder who values careful capital, this is the right moment to be in conversation.</p>
+      </div>
+      <div class="partners-block">
+        <p class="section-eyebrow">Our Partners</p>
+        <a class="partner-item" style="margin-top: 1.25rem;" href="https://ecinnovates.com/" target="_blank" rel="noopener">EC Angels &mdash; EC Innovates</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <svg class="cta-constellation" viewBox="0 0 50 70" width="44" height="62" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="17" cy="60" r="5" fill="#2F4338"/>
+      <circle cx="37" cy="48" r="4.5" fill="#2F4338"/>
+      <circle cx="23" cy="36" r="2.5" fill="#2F4338" opacity="0.5"/>
+      <circle cx="13" cy="26" r="2" fill="#2F4338" opacity="0.45"/>
+      <circle cx="33" cy="20" r="2.5" fill="#2F4338" opacity="0.5"/>
+      <circle cx="43" cy="30" r="2" fill="#2F4338" opacity="0.4"/>
+      <circle cx="27" cy="10" r="2" fill="#2F4338" opacity="0.45"/>
+      <circle cx="40" cy="6" r="1.8" fill="#2F4338" opacity="0.4"/>
+      <circle cx="20" cy="3" r="2.2" fill="#2F4338" opacity="0.5"/>
+    </svg>
+    <h2>Let's start the<br><em>conversation.</em></h2>
+    <p class="contact-sub">We're a family fund, not an intake funnel. If we've connected and you'd like to talk, reach out directly.</p>
+    <div class="contact-direct">
+      <a class="contact-email-primary" href="mailto:zach@senselfamilyventures.com">zach@senselfamilyventures.com</a>
+      <p class="contact-signature">Zach Woodward, CFP&reg;<br><span>Co-Founder &amp; Managing Director</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg viewBox="0 0 245 85" width="130" height="45" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="15" cy="62" r="5" fill="#F8F6F3" opacity="0.35"/>
+    <circle cx="35" cy="50" r="4.5" fill="#F8F6F3" opacity="0.35"/>
+    <circle cx="21" cy="38" r="2.5" fill="#F8F6F3" opacity="0.18"/>
+    <circle cx="11" cy="28" r="2" fill="#F8F6F3" opacity="0.15"/>
+    <circle cx="31" cy="22" r="2.5" fill="#F8F6F3" opacity="0.18"/>
+    <circle cx="41" cy="32" r="2" fill="#F8F6F3" opacity="0.14"/>
+    <circle cx="25" cy="12" r="2" fill="#F8F6F3" opacity="0.15"/>
+    <circle cx="38" cy="8" r="1.8" fill="#F8F6F3" opacity="0.14"/>
+    <circle cx="18" cy="5" r="2.2" fill="#F8F6F3" opacity="0.18"/>
+    <text x="68" y="43" font-family="Cormorant Garamond, serif" font-size="32" font-weight="500" fill="#F8F6F3" opacity="0.3" letter-spacing="0.06em">SENSEL</text>
+    <text x="68" y="67" font-family="Cormorant Garamond, serif" font-size="14" font-weight="400" fill="#F8F6F3" opacity="0.22" letter-spacing="0.18em">FAMILY VENTURES</text>
+  </svg>
+  <ul class="footer-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#thesis">Approach</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#team">People</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" onclick="openModal('privacy');return false;">Privacy</a></li>
+    <li><a href="#" onclick="openModal('terms');return false;">Terms</a></li>
+    <li><a href="#" onclick="openModal('accessibility');return false;">Accessibility</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 Sensel Family Ventures, LLC. Greater Dayton Area.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.criteria-card, .value-item, .compare-block, .partner-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(14px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+<!-- LEGAL MODALS -->
+<div class="modal-overlay" id="modal-privacy" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2>Privacy Policy</h2>
+    <p class="modal-meta">Sensel Family Ventures, LLC</p>
+    <h4>Introduction</h4>
+    <p>Sensel Family Ventures, LLC ("we," "our," or "the Fund") operates the website senselfamilyventures.com (the "Site"). This Privacy Policy explains what information we collect through the Site, how we use it, and your choices regarding that information.</p>
+    <p>Sensel Family Ventures is a private, family-backed investment fund. We are not a consumer-facing business, and our data collection is minimal. We do not sell products or services through the Site.</p>
+    <h4>Information We Collect</h4>
+    <p><strong>Information You Provide.</strong> The only personal information we collect directly is the email address and contact details you submit if you choose to subscribe to our newsletter or use our contact form. We do not require you to provide any personal information to browse the Site.</p>
+    <p><strong>Information Collected Automatically.</strong> Like most websites, our Site may automatically collect certain technical information when you visit, including your IP address, browser type, device type, pages visited, and the date and time of your visit. This information is collected through cookies and similar technologies managed by our hosting provider. We do not independently analyze or store this data outside of what our provider supplies as part of standard hosting and analytics services.</p>
+    <h4>How We Use Your Information</h4>
+    <p>We use the information we collect for limited purposes: to send periodic updates or communications to subscribers who have opted in, to respond to entrepreneur submissions, to understand general traffic patterns on our Site, and to maintain the security and functionality of the Site. We do not use your information for marketing unrelated products, behavioral profiling, or automated decision-making.</p>
+    <h4>Third-Party Services</h4>
+    <p>Our Site is hosted on a third-party platform that may collect and process certain data on our behalf as part of its hosting, analytics, and email services. We do not share, sell, rent, or otherwise disclose your personal information to any other third parties, except as required by law.</p>
+    <h4>Cookies</h4>
+    <p>Our Site may use cookies to enable basic functionality, remember your preferences, and collect anonymous usage statistics. You can control cookie behavior through your browser settings. Disabling cookies may affect certain features of the Site.</p>
+    <h4>Data Retention</h4>
+    <p>We retain email addresses and submitted information for as long as you remain subscribed or as long as is reasonably necessary to evaluate submissions. You may unsubscribe at any time, or request deletion of your data by contacting us directly.</p>
+    <h4>Data Security</h4>
+    <p>We take reasonable measures to protect the information collected through the Site, including SSL encryption. However, no method of electronic transmission or storage is completely secure, and we cannot guarantee absolute security.</p>
+    <h4>Children's Privacy</h4>
+    <p>Our Site is not directed at individuals under the age of 13, and we do not knowingly collect personal information from children. If we become aware that we have inadvertently collected information from a child under 13, we will take steps to delete it promptly.</p>
+    <h4>Your Rights</h4>
+    <p>Depending on your jurisdiction, you may have certain rights regarding your personal information, including the right to access, correct, or delete the data we hold about you. Ohio does not currently have a comprehensive consumer privacy statute, but we are committed to handling any data-related request in good faith.</p>
+    <h4>Changes to This Policy</h4>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with a revised effective date.</p>
+    <h4>Contact</h4>
+    <p>If you have questions about this Privacy Policy or wish to make a data-related request, contact us at:<br>Sensel Family Ventures, LLC<br>Dayton, Ohio<br><a href="mailto:info@senselfamilyventures.com">info@senselfamilyventures.com</a></p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-terms" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2>Terms &amp; Conditions</h2>
+    <p class="modal-meta">Effective Date: February 2, 2026</p>
+    <h3>1. Acceptance of Terms</h3>
+    <p>By accessing or using the website located at senselfamilyventures.com (the "Site"), you agree to be bound by these Terms &amp; Conditions ("Terms"). If you do not agree to these Terms, you should not access or use the Site. Sensel Family Ventures, LLC ("we," "our," or "the Fund") reserves the right to modify these Terms at any time. Any changes will be posted on this page with a revised effective date.</p>
+    <h3>2. Informational Purposes Only</h3>
+    <p>The content on this Site is provided for general informational purposes only. Nothing on this Site constitutes investment advice, financial advice, legal advice, tax advice, or any other form of professional advice or recommendation. Nothing on this Site constitutes or should be construed as an offer to sell, a solicitation of an offer to buy, or a recommendation for any investment, security, or financial product. The Fund does not offer securities to the public and is not soliciting investment from any person through this Site.</p>
+    <p>You should not rely on any information on this Site as a basis for making any investment, financial, legal, or other decision. If you require advice on any such matter, you should consult a qualified professional of your choosing.</p>
+    <h3>3. No Professional Relationship</h3>
+    <p>Your use of this Site does not create any advisory, fiduciary, contractual, or other professional relationship between you and Sensel Family Ventures, LLC, its members, managers, officers, or affiliates. Submitting an inquiry through the Site's contact form does not establish any such relationship.</p>
+    <h3>4. Accuracy of Information</h3>
+    <p>We make reasonable efforts to ensure that the information on this Site is accurate and current. However, we make no representations or warranties, express or implied, regarding the accuracy, completeness, reliability, suitability, or availability of any information, content, or materials on the Site. Any reliance you place on information found on this Site is strictly at your own risk.</p>
+    <h3>5. Intellectual Property</h3>
+    <p>All content on this Site — including text, graphics, logos, images, photographs, and the overall design and layout — is the property of Sensel Family Ventures, LLC or its licensors and is protected by applicable copyright, trademark, and intellectual property laws. You may not reproduce, distribute, modify, display, or create derivative works from any content on this Site without our prior written consent.</p>
+    <p>The name "Sensel Family Ventures" and any associated logos, marks, or branding elements are proprietary to the Fund.</p>
+    <h3>6. Use Restrictions</h3>
+    <p>You agree to use this Site only for lawful purposes and in a manner consistent with these Terms. You may not use the Site in any way that could damage, disable, or impair the Site or interfere with any other party's use of the Site, attempt to gain unauthorized access to any portion of the Site, or use the Site to transmit any material that is unlawful, harmful, threatening, defamatory, obscene, or otherwise objectionable.</p>
+    <h3>7. Third-Party Links</h3>
+    <p>This Site may contain links to third-party websites. These links are provided solely for your convenience. We do not control, endorse, or assume any responsibility for the content, privacy practices, or policies of any third-party websites.</p>
+    <h3>8. Disclaimer of Warranties</h3>
+    <p class="legal-caps">THIS SITE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, SENSEL FAMILY VENTURES, LLC DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.</p>
+    <h3>9. Limitation of Liability</h3>
+    <p class="legal-caps">TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, SENSEL FAMILY VENTURES, LLC AND ITS MEMBERS, MANAGERS, OFFICERS, AFFILIATES, AGENTS, AND ADVISORS SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR ACCESS TO OR USE OF (OR INABILITY TO ACCESS OR USE) THIS SITE.</p>
+    <h3>10. Indemnification</h3>
+    <p>You agree to indemnify, defend, and hold harmless Sensel Family Ventures, LLC and its members, managers, officers, affiliates, agents, and advisors from and against any and all claims, liabilities, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or related to your use of the Site or your violation of these Terms.</p>
+    <h3>11. Governing Law and Jurisdiction</h3>
+    <p>These Terms shall be governed by and construed in accordance with the laws of the State of Ohio, without regard to its conflict of law principles. You agree that any legal action or proceeding arising out of or relating to these Terms shall be brought exclusively in the state or federal courts located in Montgomery County, Ohio.</p>
+    <h3>12. Severability</h3>
+    <p>If any provision of these Terms is held to be invalid, illegal, or unenforceable, such provision shall be modified to the minimum extent necessary to make it valid and enforceable. The remaining provisions shall continue in full force and effect.</p>
+    <h3>13. Entire Agreement</h3>
+    <p>These Terms, together with our Privacy Policy and Accessibility Statement, constitute the entire agreement between you and Sensel Family Ventures, LLC with respect to your use of this Site.</p>
+    <h3>14. Contact</h3>
+    <p>Sensel Family Ventures, LLC<br>Dayton, Ohio<br><a href="mailto:info@senselfamilyventures.com">info@senselfamilyventures.com</a></p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-accessibility" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2>Accessibility Statement</h2>
+    <p class="modal-meta">Last Updated: February 2, 2026</p>
+    <h3>1. Our Commitment to Accessibility</h3>
+    <p>Sensel Family Ventures, LLC ("we" or "the Fund") is committed to ensuring that our website, senselfamilyventures.com, is accessible to all visitors, including individuals with disabilities. We believe that every person should be able to access information about our mission and activities with ease, and we strive to provide an inclusive digital experience.</p>
+    <h3>2. Standards We Follow</h3>
+    <p>We work to align our website with the Web Content Accessibility Guidelines (WCAG) 2.1 at conformance Level AA, published by the World Wide Web Consortium (W3C). WCAG 2.1 AA is the technical standard referenced by the U.S. Department of Justice in its 2024 rulemaking under Title II of the Americans with Disabilities Act and is widely recognized as the benchmark for digital accessibility under Title III of the ADA.</p>
+    <p>These guidelines are organized around four principles: content should be Perceivable, Operable, Understandable, and Robust. We apply these principles to the extent practicable.</p>
+    <h3>3. Applicable Law</h3>
+    <h4>Federal: Americans with Disabilities Act (ADA)</h4>
+    <p>Title III of the ADA prohibits discrimination on the basis of disability in places of public accommodation. Federal courts have increasingly interpreted Title III to extend to websites and digital services. The Department of Justice's April 2024 final rule under Title II formally adopted WCAG 2.1 AA as the technical standard for state and local government web content, reinforcing WCAG 2.1 AA as the prevailing benchmark for digital accessibility across contexts.</p>
+    <h4>State: Ohio Revised Code Chapter 4112</h4>
+    <p>Ohio's civil rights statute, Ohio Revised Code Chapter 4112, prohibits unlawful discriminatory practices on the basis of disability in places of public accommodation, employment, and housing. While Chapter 4112 does not contain a specific digital accessibility mandate, its broad protections against disability-based discrimination are consistent with the ADA's framework.</p>
+    <h4>Local</h4>
+    <p>The City of Dayton does not currently maintain a separate digital accessibility ordinance beyond its general adherence to federal ADA requirements. We monitor local developments and will adjust our practices if the City of Dayton or Montgomery County adopts additional standards.</p>
+    <h3>4. Platform and Design</h3>
+    <p>Our website uses semantic HTML, supports keyboard navigation, and is designed to be screen-reader compatible. We have selected a simple site design with consistent navigation to support ease of use across the Site.</p>
+    <h3>5. Known Limitations</h3>
+    <p>We are committed to addressing accessibility issues within our control promptly. If you encounter a barrier, please reach out using the contact information below.</p>
+    <h3>6. Feedback and Contact</h3>
+    <p>We welcome feedback on the accessibility of our Site. If you encounter a barrier, need content in an alternative format, or have suggestions for how we can improve accessibility, please contact us:</p>
+    <p>Sensel Family Ventures, LLC<br>Dayton, Ohio<br><a href="mailto:info@senselfamilyventures.com">info@senselfamilyventures.com</a></p>
+    <p>We will make reasonable efforts to respond to accessibility-related inquiries and to address reported issues as promptly as practicable.</p>
+    <h3>7. Third-Party Content</h3>
+    <p>Our Site may contain links to external websites or embed content from third-party services. We are not responsible for the accessibility of third-party content but will make reasonable efforts to link only to resources that meet acceptable accessibility standards.</p>
+    <h3>8. Review and Updates</h3>
+    <p>We review this Accessibility Statement periodically and will update it as we make improvements to our Site or as applicable laws and standards evolve.</p>
+  </div>
+</div>
+
+<script>
+  function openModal(name) {
+    document.getElementById('modal-' + name).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
